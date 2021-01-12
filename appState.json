@@ -1,0 +1,186 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "8b1d283d-622b-4f35-b43d-dbe0277e8205": {
+        "id": "8b1d283d-622b-4f35-b43d-dbe0277e8205",
+        "parent": null,
+        "name": "add-db-entry.js",
+        "type": "JS_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "add-db-entry.js",
+        "cursor": {
+          "lineNumber": 10,
+          "column": 10
+        },
+        "config": {
+          "runtime": "nodejs10.x",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": [],
+          "name": "add-db-entry"
+        },
+        "triggers": [
+          {
+            "resourceName": "apigfeedbackApiaddpost",
+            "config": {}
+          }
+        ],
+        "lastUpdated": 1610458035148,
+        "testCases": {
+          "26c10954-0991-46ff-968c-51a2da07544e": {
+            "id": "26c10954-0991-46ff-968c-51a2da07544e",
+            "name": "Test event",
+            "functionId": "8b1d283d-622b-4f35-b43d-dbe0277e8205",
+            "event": "{\r\n    \"Name\": \"Kumudika\",\r\n    \"Email\": \"kumudika@some-email-domain.com\",\r\n    \"Feedback\": \"Excellent\"\r\n}",
+            "eventTemplate": "hello-world"
+          }
+        }
+      },
+      "0a19389f-e3f1-40d3-b02d-28d111e1709e": {
+        "id": "0a19389f-e3f1-40d3-b02d-28d111e1709e",
+        "parent": null,
+        "name": "send-email.js",
+        "type": "JS_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "send-email.js",
+        "cursor": {
+          "lineNumber": 35,
+          "column": 18
+        },
+        "config": {
+          "runtime": "nodejs10.x",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": [],
+          "name": "send-email"
+        },
+        "triggers": [
+          {
+            "resourceName": "ddbfeedback",
+            "config": {
+              "StartingPosition": "LATEST",
+              "BatchSize": "100",
+              "StreamViewType": "NEW_IMAGE"
+            }
+          }
+        ],
+        "lastUpdated": 1610458016509,
+        "customSecurityPolicy": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Resource": "*",
+              "Action": [
+                "ses:SendEmail",
+                "ses:SendRawEmail"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "openFiles": [
+      "8b1d283d-622b-4f35-b43d-dbe0277e8205",
+      "0a19389f-e3f1-40d3-b02d-28d111e1709e"
+    ],
+    "currentFileId": "8b1d283d-622b-4f35-b43d-dbe0277e8205",
+    "resources": {
+      "apigfeedbackApiaddpost": {
+        "name": "apigfeedbackApiaddpost",
+        "type": "API_GATEWAY",
+        "config": {
+          "apiType": 1,
+          "apiMode": 0,
+          "apiName": "feedback-api",
+          "endpointType": "EDGE",
+          "resourceMode": 0,
+          "resourceName": "add",
+          "resourcePath": "/add",
+          "restMethod": "POST",
+          "proxyIntegration": false,
+          "enableCORS": true,
+          "stageMode": 0,
+          "stageName": "prod",
+          "mode": 0
+        }
+      },
+      "ddbfeedback": {
+        "name": "ddbfeedback",
+        "type": "DynamoDB",
+        "config": {
+          "mode": 0,
+          "table": {
+            "arn": "",
+            "name": "feedback",
+            "partitionKey": "Name",
+            "partitionKeyType": "S",
+            "hasSortKey": false,
+            "sortKey": "",
+            "sortKeyType": "S",
+            "payPerRequest": true,
+            "mode": 0
+          }
+        }
+      },
+      "ses-kumudika@adroitlogic.com": {
+        "name": "ses-kumudika@adroitlogic.com",
+        "type": "SES",
+        "config": {
+          "selectedIdentity": "kumudika@adroitlogic.com"
+        }
+      }
+    },
+    "customTemplate": {
+      "syntax": "JSON",
+      "overrideDefault": false,
+      "dialect": "CloudFormation",
+      "definitions": null
+    },
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {
+        "aws-sdk": {
+          "name": "aws-sdk",
+          "language": "nodejs",
+          "version": "2.817.0",
+          "dev": true,
+          "notRemovable": false
+        }
+      }
+    }
+  },
+  "PROJECT_META": {
+    "sigmaVersion": "1.5.0",
+    "projectName": "Alert_System",
+    "projectDescription": "A NodeJS application with AWS Lambda, API Gateway, DynamoDB and SES",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east-1",
+    "platform": "AWS",
+    "language": "nodejs",
+    "platformRegions": {},
+    "lastSave": 1610458041808
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "email-sender",
+      "url": "https://github.com/KumudikaR/email-sender"
+    }
+  }
+}
