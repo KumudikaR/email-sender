@@ -17,10 +17,11 @@ exports.handler = async (event) => {
             }
         }).promise();
         console.log("Successfully Saved entry from email:", email);
+        return { "message": "Successfully executed" };
 
     } catch (err) {
        console.log("Failed to save entry from email:", email, err);
+       throw err;
     };
 
-    return { "message": "Successfully executed" };
 };

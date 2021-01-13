@@ -15,14 +15,14 @@ exports.handler = async (event) => {
     console.log(tabledetails);
 
     let name = tabledetails.NewImage.Name.S;
-    let email = tabledetails.NewImage.Email.S;
+    let email = [tabledetails.NewImage.Email.S];
     let messagebody = 'Hi' + ' ' + name + '! Thank you for your feedback'
 
     try {
         let data = await ses.sendEmail({
             Source: "sender@example.com",
             Destination: {
-                ToAddresses: [email]
+                ToAddresses: email
             },
             Message: {
                 Subject: {
@@ -35,11 +35,12 @@ exports.handler = async (event) => {
                 }
             }
         }).promise();
-        console.log("Sent email to", email)
+        console.log("Sent email to", email);
+        return { "message": "Successfully executed" };
 
     } catch (err) {
-        console.log("Email sending failed", err)
+        console.log("Email sending failed", err);
+        throw err;
     };
 
-    return { "message": "Successfully executed" };
 };
